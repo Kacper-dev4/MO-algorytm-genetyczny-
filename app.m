@@ -2,6 +2,7 @@ clear all
 clc
 
 najlepszy = 0;
+ponowneWystapienie = 0;
 
 n = input("Podaj ile przedmiotów do wylosowania: ");
 B = input("Podaj pojemność plecak: ");
@@ -35,12 +36,24 @@ options = optimoptions('ga', ...
     'Display', 'iter'); 
 
 % Wywołanie algorytmu genetycznego
+for i=1:20
 [x_best, fval] = ga(funkcja, n, w, B, [], [], lb, ub, [], 1:n, options);
 
 wagaPlecaka = sum(w .* x_best);
 
-disp('Najlepszy zestaw przedmiotów:')
+disp(['Najlepszy zestaw przedmiotów dla rozmiaru populacji ', num2str(popSize) ,':' ])
 disp(x_best)
 disp(['Maksymalna wartość plecaka: ', num2str(-fval)])
 disp(['Waga przedmiotów w plecaku: ',num2str(wagaPlecaka)])
 
+if -fval == najlepszy
+    ponowneWystapienie = ponowneWystapienie +1;
+end
+
+if -fval > najlepszy
+    najlepszy = -fval;
+    ponowneWystapienie = 0;
+end
+
+
+end
