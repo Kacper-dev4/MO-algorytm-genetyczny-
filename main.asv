@@ -23,10 +23,10 @@ options = optimoptions('ga', ...
 % Wywołanie algorytmu genetycznego
 [x_best, fval] = ga(funkcja, n, w, B, [], [], lb, ub, [], 1:n, options);
 
-wagaPlecaka = sum(w .* x_best);
+wagaPlecaka = sum(w .* x_best));
 
 disp('Najlepszy zestaw przedmiotów:')
 disp(x_best)
 disp(['Maksymalna wartość plecaka: ', num2str(-fval)])
-disp(['Waga przedmiotów w plecaku: ',num2str(wagaPlecaka)])
+disp('Waga przedmitów w plecaku: ',num2str()
 
