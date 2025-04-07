@@ -28,11 +28,11 @@ options = optimoptions('ga', ...
 
 % Wywołanie algorytmu genetycznego
 for i=1:20
-[x_best, fval] = ga(funkcja, n, A, B, [], [], lb, [], [], 1:n, options);
+[x, fval] = ga(funkcja, n, A, B, [], [], lb, [], [], 1:n, options);
 
 
 disp('Najlepszy zestaw: ')
-disp(x_best)
+disp(x)
 disp(['Maksymalna wartość pojazdów: ', num2str(-fval)])
 
 if -fval == najlepszy
@@ -41,8 +41,13 @@ end
 
 if -fval > najlepszy
     najlepszy = -fval;
+    x_best = x;
     ponowneWystapienie = 0;
 end
 
 
 end
+
+disp('Najlepszy zestaw końcowy: ')
+disp(x_best)
+disp(['Maksymalna wartość aut: ', num2str(najlepszy)])

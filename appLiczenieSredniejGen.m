@@ -40,12 +40,12 @@ options = optimoptions('ga', ...
     'OutputFcn', outputFcn); 
 
 for i=1:20
-    [x_best, fval] = ga(funkcja, n, w, B, [], [], lb, ub, [], 1:n, options);
+    [x, fval] = ga(funkcja, n, w, B, [], [], lb, ub, [], 1:n, options);
 
-    wagaPlecaka = sum(w .* x_best);
+    wagaPlecaka = sum(w .* x);
 
     disp(['Najlepszy zestaw przedmiotów dla rozmiaru populacji ', num2str(popSize), ':' ])
-    disp(x_best)
+    disp(x)
     disp(['Maksymalna wartość plecaka: ', num2str(-fval)])
     disp(['Waga przedmiotów w plecaku: ', num2str(wagaPlecaka)])
     disp(['Liczba generacji: ', num2str(ostatniaGeneracja)])
@@ -58,9 +58,14 @@ for i=1:20
 
     if -fval > najlepszy
         najlepszy = -fval;
+        x_best = x;
         ponowneWystapienie = 0;
     end
 end
+
+disp('Najlepszy zestaw końcowy: ')
+disp(x_best)
+disp(['Maksymalna wartość plecaka: ', num2str(najlepszy)])
 
 sredniaGeneracji = sumaGeneracji / 20;
 disp(['Średnia liczba generacji: ', num2str(sredniaGeneracji)])

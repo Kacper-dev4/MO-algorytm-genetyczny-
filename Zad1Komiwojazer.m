@@ -1,16 +1,16 @@
 clear all
 clc
 
-% Stałe
+
 nMiast = 8;
-popSize = 100; % Ustalona wielkość populacji
+popSize = 10; 
 
 % Generowanie losowej macierzy odległości między miastami
-odleglosci = randi([10 100], nMiast); 
+odleglosci = randi([10 100], nMiast);
+d = triu(odleglosci,1);
 odleglosci = triu(odleglosci,1) + triu(odleglosci,1)'; % symetryczna
-
 % Funkcja celu – suma odległości po trasie + powrót do punktu startowego
-funkcja = @(x) sum(sum(odleglosci*x));
+funkcja = @(x) sum(sum(x*d));
 
 najlepszy = inf;
 ponowneWystapienie = 0;
@@ -22,12 +22,12 @@ ponowneWystapienie = 0;
 
  % Ograniczenia liniowe problemu komiwijażera każde miasto ma 2 połączenia
  % z pozostałymi miastami
-    Aeq = [-1 1];
-    beq = 5;
+    Aeq = [ones(8,8)];
+    beq = [ones(8,1)];
 
 % Ustawienia algorytmu genetycznego
 options = optimoptions('ga', ...
-    'MaxGenerations', 100, ...
+    'MaxGenerations', 10, ...
     'PopulationSize', popSize, ...
     'MutationFcn', {@mutationuniform, 0.2}, ...
     'CrossoverFcn', @crossoversinglepoint, ...
@@ -38,7 +38,7 @@ options = optimoptions('ga', ...
 for i = 1:20
    
 
-    [x_best, fval] = ga(funkcja, nMiast, [], [], [], [], lb, ub, [], 1:nMiast , options);
+    [x_best, fval] = ga(funkcja, f, [], [], Aeq, beq, lb, ub, [], 1:nMiast , options);
 
     disp(['Najlepsza trasa nr ', num2str(i), ': ', mat2str(round(x_best))])
     disp(['Całkowity dystans: ', num2str(fval)])
