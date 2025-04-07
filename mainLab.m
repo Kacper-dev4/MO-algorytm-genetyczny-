@@ -5,13 +5,13 @@ najlepszy = 0;
 ponowneWystapienie = 0;
 sumaGeneracji = 0;
 
-n = input("Podaj ile przedmiotów do wylosowania: ");
-B = input("Podaj pojemność plecaka: ");
-c_ll = input("Podaj dolny limit cen przedmiotów: ");
-c_ul = input("Podaj górny limit cen przedmiotów: ");
-w_ll = input("Podaj dolny limit wagi przedmiotów: ");
-w_ul = input("Podaj górny limit wagi przedmiotów: ");
-popSize = input("Jaka ma być wielkość populacji: ");
+n = 20;
+B = 100; %pojemność plecaka
+c_ll = 10; %dolny limit cen
+c_ul = 100; %górny limit cen
+w_ll = 5; % dolny limit wag
+w_ul = 55; %górny limit wag
+popSize = 5; %wielokość populacji 
 
 c = randi([c_ll,c_ul],1,n);
 w = randi([w_ll,w_ul],1,n);
@@ -31,12 +31,13 @@ outputFcn = @(options,state,flag) zapiszGeneracje(options,state,flag);
 % Opcje algorytmu genetycznego
 options = optimoptions('ga', ...
     'MaxGenerations', 100, ...
-    'PopulationSize', popSize, ...
+    'PopulationSize', 5, ...
     'MutationFcn',{@mutationuniform, 0.1},...
     'SelectionFcn','selectionroulette',...
     'CrossoverFcn','crossoversinglepoint',...
     'CrossoverFraction', 0.8, ...
     'Display', 'iter', ...
+    'EliteCount', 4, ...
     'OutputFcn', outputFcn); 
 
 for i=1:20
