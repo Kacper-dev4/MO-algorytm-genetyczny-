@@ -40,7 +40,7 @@ end
 end
 
 % Analiza wyników
-najlepsza = max(najlepsze_wartosci);
+najlepsza = min(najlepsze_wartosci);
 ile_razy = sum(najlepsze_wartosci == najlepsza);
 srednia_gen = mean(generacje);
 
